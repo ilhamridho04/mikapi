@@ -1,0 +1,30 @@
+{
+    "name": "mikapi",
+    "version": "1.0.0",
+    "description": "Latihan membuat API RouterOS Client menggunakan NodeJS dan ExpressJS.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \\\"Error: No test specified.\\\" && exit 1",
+        "app": "node app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ilhamridho04/mikapi.git"
+    },
+    "keywords": [
+        "MIKRONODE"
+    ],
+    "author": "Ilham Ridho Asysyifa'a",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ilhamridho04/mikapi/issues"
+    },
+    "homepage": "https://github.com/ilhamridho04/mikapi#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "node-routeros": "^1.6.8"
+    },
+    "devDependencies": {
+        "gulp": "^4.0.2"
+    }
+}
