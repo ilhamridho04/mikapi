@@ -2,7 +2,7 @@
     "name": "mikapi",
     "version": "1.0.0",
     "description": "Latihan membuat API RouterOS Client menggunakan NodeJS dan ExpressJS.",
-    "main": "index.js",
+    "main": "app.js",
     "scripts": {
         "test": "echo \\\"Error: No test specified.\\\" && exit 1",
         "app": "node app.js"
