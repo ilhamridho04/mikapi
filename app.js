@@ -1,10 +1,48 @@
-var express = require("express");
-var app = express();
+const RouterOSClient = require('../dist').RouterOSClient;
+const chai = require('chai');
+const config = require('./config');
 
-app.get("/url", (req, res, next) => {
-    res.json(["Ilham Ridho Asysyifa'a", "Teknik Informatika B 2017"]);
-});
+const should = chai.should();
 
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
+describe('RouterOSClient', () => {
+    describe('#connect', () => {
+        it('should connect with valid username and password', (done) => {
+            const conn = new RouterOSClient({
+                host: config.host,
+                user: config.user,
+                password: config.password,
+            });
+
+            conn.connect()
+                .then((api) => {
+                    should.exist(api);
+                    conn.close();
+                    done();
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+
+        it('should not connect with invalid username and password', function(done) {
+            this.timeout(7000);
+
+            const conn = new RouterOSClient({
+                host: config.host,
+                user: 'ilhamridho',
+                password: 'Ilham1212*',
+                timeout: 5,
+            });
+
+            conn.connect()
+                .then((api) => {
+                    should.not.exist(api);
+                    conn.close();
+                    done();
+                })
+                .catch((err) => {
+                    done();
+                });
+        });
+    });
 });
