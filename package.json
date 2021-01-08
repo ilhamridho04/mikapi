@@ -22,6 +22,7 @@
     "homepage": "https://github.com/ilhamridho04/mikapi#readme",
     "dependencies": {
         "express": "^4.16.4",
+        "mikronode": "^2.3.11",
         "node-routeros": "^1.6.8"
     },
     "devDependencies": {

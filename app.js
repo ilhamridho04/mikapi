@@ -1,48 +1,17 @@
-const RouterOSClient = require('../dist').RouterOSClient;
-const chai = require('chai');
-const config = require('./config');
+var api = require('mikronode').MikroNode;
 
-const should = chai.should();
+var device = new api('192.168.100.47');
+device.connect().then(([login]) => login('admin', 'admintest')).then(function(conn) {
 
-describe('RouterOSClient', () => {
-    describe('#connect', () => {
-        it('should connect with valid username and password', (done) => {
-            const conn = new RouterOSClient({
-                host: config.host,
-                user: config.user,
-                password: config.password,
-            });
+    var chan = conn.openChannel();
 
-            conn.connect()
-                .then((api) => {
-                    should.exist(api);
-                    conn.close();
-                    done();
-                })
-                .catch((err) => {
-                    done(err);
-                });
-        });
-
-        it('should not connect with invalid username and password', function(done) {
-            this.timeout(7000);
-
-            const conn = new RouterOSClient({
-                host: config.host,
-                user: 'ilhamridho',
-                password: 'Ilham1212*',
-                timeout: 5,
-            });
-
-            conn.connect()
-                .then((api) => {
-                    should.not.exist(api);
-                    conn.close();
-                    done();
-                })
-                .catch((err) => {
-                    done();
-                });
-        });
+    chan.write('/ip/address/add', { 'interface': 'ether1', 'address': '192.168.1.1' });
+    chan.on('trap', function(data) {
+        console.log('Error setting IP: ' + data);
     });
+    chan.on('done', function(data) {
+        console.log('IP Set.');
+    });
+    chan.close();
+    conn.close();
 });
